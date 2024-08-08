@@ -29,6 +29,8 @@ const renderData = function (data) {
 
 // create function that pulls search results from local data
 
+// create function that grabs user input
+
 searchForOrgs(`Nashville`)
 
 console.log(results);
