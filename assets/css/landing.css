@@ -1,5 +1,5 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
@@ -8,7 +8,7 @@ body {
   }
   
   header {
-    background-color: #4CAF50;
+    background-color: #A1C181;
     color: white;
     text-align: center;
     padding: 1em;
@@ -23,6 +23,8 @@ body {
     display: flex;
     justify-content: center;
     margin-bottom: 2em;
+    background-color: #619b8a;
+    color: white;
   }
   
   #location {
@@ -35,15 +37,17 @@ body {
   
   #search {
     padding: 0.5em 1em;
-    background-color: #4CAF50;
+    background-color: #A1C181;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    color: #233d4d;
   }
   
   #search:hover {
-    background-color: #45a049;
+    background-color: #233d4d;
+    color: white;
   }
   
   #opportunity-list {
