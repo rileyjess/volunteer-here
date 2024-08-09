@@ -10,7 +10,6 @@ const searchForOrgs = function (location) {
         .then(function (response) {
             if (response.ok) {
                 response.json().then(function (data) {
-                    console.log(data)
                     for (let i = 0; i < data.nonprofits.length; i++) {
                         renderData(data.nonprofits[i])
                     }
@@ -33,10 +32,19 @@ const searchButtonClick = function () {
 };
 
 const renderData = function (data) {
-    const h1 = document.createElement('h1');
+    const li = document.createElement('li');
+    const h3 = document.createElement('h3');
+    const pEl = document.createElement('p');
+    const url = document.createElement('a');
 
-    h1.textContent = data.name
-    resultEl.appendChild(h1);
+    h3.textContent = data.name
+    pEl.textContent = data.location
+    url.setAttribute('href', data.profileUrl);
+    url.textContent = 'Website'
+    li.appendChild(h3);
+    li.appendChild(pEl);
+    li.appendChild(url);
+    resultEl.appendChild(li);
 }
 
 searchButtonEl.addEventListener('click', searchButtonClick);
