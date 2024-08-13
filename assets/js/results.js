@@ -1,19 +1,36 @@
+const locationInputEl = document.getElementById('location');
+const searchButtonEl = document.getElementById('search');
 const resultEl = document.getElementById('results-list');
+
+// add a fetch function that adds the street address as an element with the new api
+
+// const saveEin = function (ein) {
+//     const einList = JSON.parse(localStorage.getItem('einList')) || []
+//     einList.push(ein)
+
+//     localStorage.setItem('einList', JSON.stringify(einList));
+// }
 
 const renderData = function (data) {
     const li = document.createElement('li');
+    const iEl = document.createElement('i');
     const h3 = document.createElement('h3');
-    const pEl = document.createElement('p');
-    const url = document.createElement('a');
+    // const pEl = document.createElement('p');
+    // const url = document.createElement('a');
     // add a save button element
 
+    // for (let i = 0; i < data.length )
+    // localStorage.setItem('ein', data.ein);
+
     h3.textContent = data.name
-    pEl.textContent = data.location
-    url.setAttribute('href', data.profileUrl);
-    url.textContent = 'Website'
+    iEl.textContent = '⭐'
+    // pEl.textContent = data.location
+    // url.setAttribute('href', data.profileUrl);
+    // url.textContent = 'Website'
     li.appendChild(h3);
-    li.appendChild(pEl);
-    li.appendChild(url);
+    li.appendChild(iEl);
+    // li.appendChild(pEl);
+    // li.appendChild(url);
     resultEl.appendChild(li);
 };
 
@@ -25,7 +42,10 @@ const searchForOrgs = function (location) {
             if (response.ok) {
                 response.json().then(function (data) {
                     for (let i = 0; i < data.nonprofits.length; i++) {
+                        console.log(data);
+                        // localStorage.setItem('ein', data.ein);
                         renderData(data.nonprofits[i])
+                        // saveEin(data.nonprofits[i].ein)
                     }
                 })
             };
