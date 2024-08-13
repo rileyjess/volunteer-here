@@ -1,15 +1,20 @@
 const locationInputEl = document.getElementById('location');
 const searchButtonEl = document.getElementById('search');
 const resultEl = document.getElementById('results-list');
+const savedEl = document.getElementById('saved-searches-list');
 
 // add a fetch function that adds the street address as an element with the new api
+
+const starClick = function (data) {
+    
+};
 
 // const saveEin = function (ein) {
 //     const einList = JSON.parse(localStorage.getItem('einList')) || []
 //     einList.push(ein)
 
 //     localStorage.setItem('einList', JSON.stringify(einList));
-// }
+// };
 
 const renderData = function (data) {
     const li = document.createElement('li');
@@ -17,7 +22,6 @@ const renderData = function (data) {
     const h3 = document.createElement('h3');
     // const pEl = document.createElement('p');
     // const url = document.createElement('a');
-    // add a save button element
 
     // for (let i = 0; i < data.length )
     // localStorage.setItem('ein', data.ein);
