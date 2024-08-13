@@ -9,7 +9,6 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="./assets/css/results.css">
-  <title>Volunteer Here Results</title>
 </head>
 
 <body>
@@ -20,9 +19,21 @@
     </header>
   </header>
 
+
   <main class="grid grid-cols-6">
     <section class="h-screen col-span-4 rounded mr-7" id="results-section">
       <h2 class="font-bold text-2xl">Results</h2>
+      
+  <!-- add back buttton and/or navbar to locate back to the landing page -->
+
+    <section id="search-section">
+      <input type="text" id="location" placeholder="Enter location" />
+      <button id="search">Search</button>
+    </section>
+
+    <section id="results-section">
+      <h2>Opportunities</h2>
+
       <ul id="results-list"></ul>
     </section>
 
@@ -85,6 +96,7 @@
   </footer>
 
   <script src="./assets/js/script.js"></script>
+  <script src="./assets/js/results.js"></script>
 </body>
 
 </html>
