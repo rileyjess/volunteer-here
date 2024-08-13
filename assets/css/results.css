@@ -36,3 +36,11 @@ footer {
   text-align: center;
   padding: 1em;
 }
+
+li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #A1C181;
+  border-radius: 5px;
+  list-style-type: none;
+}
