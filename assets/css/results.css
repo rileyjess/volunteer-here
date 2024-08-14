@@ -9,7 +9,7 @@ body {
 
 header {
   background-color: #A1C181;
-  color: white;
+  color: #233D4D;
   text-align: center;
   padding: 0.5em;
 }
@@ -19,15 +19,26 @@ main {
   padding: 2em;
 }
 
-#saved-searches {
-  background-color: #A1C181;
-  color: white;
-  padding: 20px;
+#explanation-text {
+  padding-top: 2em;
+  padding-left: 35px;
+  padding-bottom: 5px;
+  color: #233d4d;
 }
 
 #results-section {
   background-color:#619b8a;
+  color: #233d4d;
+  padding: 20px;
+}
+
+h2 {
   color: white;
+}
+
+#saved-searches {
+  background-color: #619b8a;
+  color: #233d4d;
   padding: 20px;
 }
 
@@ -44,4 +55,8 @@ li {
   border-radius: 5px;
   list-style-type: none;
   font-size: 20px;
+}
+
+ul p:hover {
+  cursor: pointer;
 }

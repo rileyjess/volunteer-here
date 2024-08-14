@@ -13,8 +13,10 @@ const resultEl = document.getElementById('results-list');
 
 const renderData = function (data) {
     const li = document.createElement('li');
-    const pEl = document.createElement('p');
     const h3 = document.createElement('h3');
+    const containerEl = document.createElement('div');
+    const infoEl = document.createElement('button');
+    const starEl = document.createElement('button');
     // const pEl = document.createElement('p');
     // const url = document.createElement('a');
     // add a save button element
@@ -23,13 +25,18 @@ const renderData = function (data) {
     // localStorage.setItem('ein', data.ein);
 
     li.setAttribute('class', 'flex direction-row justify-between');
-    h3.textContent = data.name
-    pEl.textContent = '⭐'
+    containerEl.setAttribute('class', 'flex direction-row');
+    h3.textContent = data.name;
+    infoEl.textContent = '💬';
+    infoEl.setAttribute('class', 'pr-5');
+    starEl.textContent = '⭐';
     // pEl.textContent = data.location
     // url.setAttribute('href', data.profileUrl);
     // url.textContent = 'Website'
     li.appendChild(h3);
-    li.appendChild(pEl);
+    containerEl.appendChild(infoEl);
+    containerEl.appendChild(starEl);
+    li.appendChild(containerEl);
     // li.appendChild(pEl);
     // li.appendChild(url);
     resultEl.appendChild(li);
