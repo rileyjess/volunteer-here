@@ -13,7 +13,7 @@ const resultEl = document.getElementById('results-list');
 
 const renderData = function (data) {
     const li = document.createElement('li');
-    const iEl = document.createElement('i');
+    const pEl = document.createElement('p');
     const h3 = document.createElement('h3');
     // const pEl = document.createElement('p');
     // const url = document.createElement('a');
@@ -22,13 +22,14 @@ const renderData = function (data) {
     // for (let i = 0; i < data.length )
     // localStorage.setItem('ein', data.ein);
 
+    li.setAttribute('class', 'flex direction-row justify-between');
     h3.textContent = data.name
-    iEl.textContent = '⭐'
+    pEl.textContent = '⭐'
     // pEl.textContent = data.location
     // url.setAttribute('href', data.profileUrl);
     // url.textContent = 'Website'
     li.appendChild(h3);
-    li.appendChild(iEl);
+    li.appendChild(pEl);
     // li.appendChild(pEl);
     // li.appendChild(url);
     resultEl.appendChild(li);
@@ -42,11 +43,11 @@ const searchForOrgs = function (location) {
             if (response.ok) {
                 response.json().then(function (data) {
                     for (let i = 0; i < data.nonprofits.length; i++) {
-                        console.log(data);
                         // localStorage.setItem('ein', data.ein);
                         renderData(data.nonprofits[i])
                         // saveEin(data.nonprofits[i].ein)
                     }
+                    console.log(data);
                 })
             };
         });
@@ -65,7 +66,7 @@ const searchButtonClick = function () {
     displayResults();
 };
 
-searchButtonEl.addEventListener('click', searchButtonClick);
+// searchButtonEl.addEventListener('click', searchButtonClick);
 
 displayResults();
 
