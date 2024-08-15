@@ -1,6 +1,6 @@
-const locationInputEl = document.getElementById('location');
-const searchButtonEl = document.getElementById('search');
-const resultEl = document.getElementById('results-list');
+// const locationInputEl = document.getElementById('location');
+// const searchButtonEl = document.getElementById('search');
+const resultsEl = document.getElementById('results-list');
 const savedEl = document.getElementById('saved-searches-list');
 
 // add a fetch function that adds the street address as an element with the new api
@@ -49,7 +49,7 @@ const loadNonprofits = function () {
     }
 }
 
-resultEl.addEventListener('click', function (event) {
+resultsEl.addEventListener('click', function (event) {
     const clicked = event.target
 
     if (clicked.matches('button') && clicked.textContent == '⭐') {
@@ -86,7 +86,7 @@ const renderData = function (data) {
     containerEl.appendChild(infoEl);
     containerEl.appendChild(starEl);
     li.appendChild(containerEl);
-    resultEl.appendChild(li);
+    resultsEl.appendChild(li);
 };
 
 const searchForOrgs = function (location) {
@@ -102,7 +102,7 @@ const searchForOrgs = function (location) {
                 })
             };
         });
-    resultEl.textContent = '';
+    resultsEl.textContent = '';
 };
 
 const displayResults = function () {
