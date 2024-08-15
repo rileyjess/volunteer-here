@@ -9,7 +9,7 @@ body {
 
 header {
   background-color: #A1C181;
-  color: white;
+  color: #233D4D;
   text-align: center;
   padding: 1em;
 }
@@ -49,6 +49,10 @@ main {
 #search:hover {
   background-color: #233d4d;
   color: white;
+}
+
+#how-it-works {
+  color: #233D4D;
 }
 
 footer {
