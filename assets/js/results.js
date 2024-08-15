@@ -1,9 +1,12 @@
-// const locationInputEl = document.getElementById('location');
-// const searchButtonEl = document.getElementById('search');
 const resultsEl = document.getElementById('results-list');
 const savedEl = document.getElementById('saved-searches-list');
+const infoModal = document.getElementById('info-modal');
+const closeModalBtn = document.getElementById('close-btn');
 
 // add a fetch function that adds the street address as an element with the new api
+function openModal() {
+    infoModal.classList.remove('hidden');
+}
 
 const saveNonprofits = function (name, ein) {
     const savedNonprofits = JSON.parse(localStorage.getItem('savedNonprofits')) || []
@@ -52,7 +55,7 @@ const loadNonprofits = function () {
 resultsEl.addEventListener('click', function (event) {
     const clicked = event.target
 
-    if (clicked.matches('button') && clicked.textContent == '⭐') {
+    if (clicked.matches('button') && clicked.textContent === '⭐') {
         const ein = clicked.parentElement.getAttribute('data-ein');
         fetch(`https://partners.every.org/v0.2/search/${ein}?apiKey=pk_live_ed857e1af5a6567d7354ed4554625a24`)
             .then(function (response) {
@@ -65,7 +68,64 @@ resultsEl.addEventListener('click', function (event) {
                 }
             })
     }
-})
+
+    if (clicked.matches('button') && clicked.textContent === '💬') {
+        const apiUrl = 'https://api.charityapi.org/api/organizations';
+        const apiKey = 'live-5xe2vl-WAWxO6mV2GxmymmvPTC1glt2LnWv2PfbKBRbFFiW6b9vzUV5GUVRQpXlGCL09YdjwXmwZ-aV9';
+        const ein = clicked.parentElement.getAttribute('data-ein');
+        const searchUrl = `https://api.charityapi.org/api/organizations/${ein}`
+        // `${apiUrl}/${ein}?api_key=${apiKey}`;
+
+        fetch(searchUrl, {
+            method: 'GET',
+            headers: {
+                'apiKey': apiKey
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to fetch organization data');
+                }
+                return response.json();
+            })
+            .then(result => {
+
+                console.log(result.data);
+
+                // render the data
+                const details = document.getElementById('details');
+
+                details.innerHTML = ''
+
+                const address = document.createElement('p');
+                const city = document.createElement('p');
+                const zip = document.createElement('p');
+
+                address.textContent = result.data.street;
+                city.textContent = result.data.city;
+                zip.textContent = result.data.zip;
+
+                details.appendChild(address);
+                details.appendChild(city);
+                details.appendChild(zip);
+
+                openModal();
+
+            })
+            .catch(error => {
+                console.error('Error fetching organization data:', error);
+            });
+    }
+
+}
+)
+
+const closeModal = function () {
+    console.log('Hello');
+    infoModal.classList.add('hidden');
+}
+
+closeModalBtn.addEventListener('click', closeModal);
 
 const renderData = function (data) {
     const li = document.createElement('li');
@@ -80,6 +140,7 @@ const renderData = function (data) {
     h3.textContent = data.name;
     infoEl.textContent = '💬';
     infoEl.setAttribute('class', 'pr-5');
+    infoEl.setAttribute('id', 'info-btn');
     starEl.textContent = '⭐';
 
     li.appendChild(h3);
@@ -119,3 +180,12 @@ const searchButtonClick = function () {
 displayResults();
 
 loadNonprofits();
+// create function that stores search results in local data
+
+// create function that pulls search results from local data
+
+// When the more information button is clicked, open the modal to disaply information from the API
+
+
+// const infoBtn = document.getElementById('info-btn');
+// infoBtn.addEventListener('click', openModal);

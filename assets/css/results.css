@@ -17,6 +17,7 @@ header {
 main {
   flex: 1;
   padding: 2em;
+  padding-top: 0px;
 }
 
 #explanation-text {
