@@ -10,19 +10,21 @@
 </head>
 
 <body>
-  <header class="flex justify-between">
-    <h1 class="font-bold">VOLUNTEER HERE</h1>
-    <a class="font-bold" href="./results.html">Saved Searches  ⭐</a>
+  <header class="flex justify-between items-center">
+    <h1 class="font-bold text-lg">VOLUNTEER HERE</h1>
+    <a id="saved-searches-btn" class="text-sm border-solid rounded-full border-2 pl-3 pr-3 pt-2 pb-2" href="./results.html">Saved Searches</a>
   </header>
 
+  <!-- Add a section with a search bar and button that will navigate to the results page when clicked -->
   <main>
     <section id="search-section" class="items-center flex flex-col h-96">
       <h2 class="font-bold text-3xl pb-2">Looking for a nonprofit to volunteer with?</h2>
       <p>Find the right one in your area:</p>
       <input type="text" id="location" placeholder="Search by city" class="m-4"/>
-      <button id="search">Search</button>
+      <button id="search" class="border-solid rounded-full border-2 pl-3 pr-3 pt-2 pb-2">Search</button>
     </section>
 
+    <!-- Add steps to explain how the app works -->
     <section id="how-it-works" class="text-center">
       <p class="font-bold text-2xl">2 Simple Steps</p>
       <section class="flex flex-row justify-around m-10">
