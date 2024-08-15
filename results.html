@@ -21,17 +21,10 @@
 
   
   <p id="explanation-text" class="text-dark text-sm">For more information about each nonprofit, click 💬. To save a nonprofit to your saved searches list, click ⭐.</p>
-  <main class="grid grid-cols-6 pt-0">
+  
+  <main class="grid grid-cols-6">
     <section class="col-span-4 rounded mr-7" id="results-section">
       <h2 class="font-bold text-2xl pb-5">Results</h2>
-
-  <main class="grid grid-cols-6">
-    <section class="h-screen col-span-4 rounded mr-7" id="results-section">
-      <h2 class="font-bold text-2xl">Results</h2>
-
-    <section id="results-section">
-      <h2>Opportunities</h2>
-
       <ul id="results-list"></ul>
     </section>
 
@@ -41,7 +34,8 @@
     </section>
 
     <!-- Modal -->
-    <div class="relative z-10 invisible" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+     <!-- Data attribute that keeps track of whether it's hidden or shown -->
+    <div id="info-modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
       <!--
             Background backdrop, show/hide based on modal state.
         
@@ -72,7 +66,7 @@
               <div class="sm:flex sm:items-start">
                 <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">More information</h3>
-                  <div class="mt-2">
+                  <div id="details" class="mt-2">
                     <p class="text-sm text-gray-500">Details</p>
                   </div>
                 </div>
@@ -80,7 +74,7 @@
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button type="button"
-                class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Close</button>
+                id="close-btn" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">Close</button>
             </div>
           </div>
         </div>
