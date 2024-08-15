@@ -18,7 +18,7 @@ const searchForOrganization = function (ein) {
             
             console.log(data);
             
-            resultEl.innerHTML = `
+            resultsEl.innerHTML = `
                 <h2>${data.name}</h2>
                 <p><strong>Location:</strong> ${data.location}</p>
                 <p><strong>Street Address:</strong> ${data.streetAddress}</p>
@@ -29,7 +29,7 @@ const searchForOrganization = function (ein) {
         });
 }
 
-searchButtonEl.addEventListener('click', () => {
-    const ein = einInputEl.value;
-    searchForOrganization(ein);
-});
+// searchButtonEl.addEventListener('click', () => {
+//     const ein = einInputEl.value;
+//     searchForOrganization(ein);
+// });

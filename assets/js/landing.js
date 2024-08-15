@@ -1,5 +1,5 @@
 const locationInputEl = document.getElementById('location');
-const searchButtonEl = document.getElementById('search');
+const searchButton = document.getElementById('search');
 
 const nextPage = function () {
     const cityState = locationInputEl.value.trim();
@@ -7,4 +7,4 @@ const nextPage = function () {
     location.href = 'results.html';
 };
 
-searchButtonEl.addEventListener('click', nextPage);
+searchButton.addEventListener('click', nextPage);
