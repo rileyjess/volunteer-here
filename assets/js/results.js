@@ -3,7 +3,7 @@ const savedEl = document.getElementById('saved-searches-list');
 const infoModal = document.getElementById('info-modal');
 const closeModalBtn = document.getElementById('close-btn');
 
-// Add a fetch function that adds the street address as an element with the new API
+// saving the nonprofit clicked on to the local storagee array
 const saveNonprofits = function (name, ein) {
     const savedNonprofits = JSON.parse(localStorage.getItem('savedNonprofits')) || []
     const nonprofit = {
@@ -40,7 +40,7 @@ const loadNonprofits = function () {
         h3.textContent = nonprofit.name;
         infoEl.textContent = '🔍';
         infoEl.setAttribute('class', 'pr-5');
-        starEl.textContent = '⭐';
+        starEl.textContent = '✖️';
 
         // Append them to the container
         li.appendChild(h3);
@@ -51,6 +51,28 @@ const loadNonprofits = function () {
     }
 }
 
+// creates the information displayed in the modal
+const createAddress = function(result) {
+    const details = document.getElementById('details');
+
+    details.innerHTML = ''
+
+    const address = document.createElement('p');
+    const city = document.createElement('p');
+    const state = document.createElement('p');
+    const zip = document.createElement('p');
+
+    address.textContent = result.data.street;
+    city.textContent = result.data.city;
+    state.textContent = result.data.state;
+    zip.textContent = result.data.zip;
+
+    details.appendChild(address);
+    details.appendChild(city);
+    details.appendChild(state);
+    details.appendChild(zip);
+}
+
 // Open the modal by removing the hidden class from the modal div
 function openModal() {
     infoModal.classList.remove('hidden');
@@ -59,7 +81,7 @@ function openModal() {
 resultsEl.addEventListener('click', function (event) {
     const clicked = event.target
 
-    // When the 'save search' button is clicked, the functions will run to make the list item appear in the saved searches container
+    // When the 'star' button is clicked, the functions will run to make the list item appear in the saved searches container
     if (clicked.matches('button') && clicked.textContent === '⭐') {
         const ein = clicked.parentElement.getAttribute('data-ein');
         const name = clicked.parentElement.getAttribute('data-name');
@@ -68,7 +90,7 @@ resultsEl.addEventListener('click', function (event) {
         loadNonprofits();
     };
 
-    // When the 'more information' button is clicked, information will be called from the Charity API and will be appended to the modal
+    // When the 'magnifying glass' button is clicked, information will be called from the Charity API and will be appended to the modal
     if (clicked.matches('button') && clicked.textContent === '🔍') {
         const apiUrl = 'https://api.charityapi.org/api/organizations';
         const apiKey = 'live-5xe2vl-WAWxO6mV2GxmymmvPTC1glt2LnWv2PfbKBRbFFiW6b9vzUV5GUVRQpXlGCL09YdjwXmwZ-aV9';
@@ -88,26 +110,7 @@ resultsEl.addEventListener('click', function (event) {
                 return response.json();
             })
             .then(result => {
-
-                const details = document.getElementById('details');
-
-                details.innerHTML = ''
-
-                const address = document.createElement('p');
-                const city = document.createElement('p');
-                const state = document.createElement('p');
-                const zip = document.createElement('p');
-
-                address.textContent = result.data.street;
-                city.textContent = result.data.city;
-                state.textContent = result.data.state;
-                zip.textContent = result.data.zip;
-
-                details.appendChild(address);
-                details.appendChild(city);
-                details.appendChild(state);
-                details.appendChild(zip);
-
+                createAddress(result);
                 // Run the function to open the modal
                 openModal();
 
@@ -123,24 +126,17 @@ resultsEl.addEventListener('click', function (event) {
 savedEl.addEventListener('click', function (event) {
     const clicked = event.target
 
-    // When the 'save search' button is clicked, the functions will run to make the list item appear in the saved searches container
-    if (clicked.matches('button') && clicked.textContent === '⭐') {
+    // When the 'minus sign' button is clicked, it removes the item from the saved nonprofits box
+    if (clicked.matches('button') && clicked.textContent === '✖️') {
         const ein = clicked.parentElement.getAttribute('data-ein');
         const savedNonprofits = JSON.parse(localStorage.getItem('savedNonprofits')) || []
-        // console.log(savedNonprofits);
-        for (let i = 0; i < savedNonprofits.length; i++) {
-            if (ein === savedNonprofits[i].ein) {
-                delete savedNonprofits[i];
-                i++;
-            } else {
-                i++
-            }
-        }
-        // savedNonprofits.filter(Boolean)
-        localStorage.setItem('savedNonprofits', JSON.stringify(savedNonprofits))
+        const filteredNonprofits = savedNonprofits.filter(nonprofit => nonprofit.ein !== ein)
+
+        localStorage.setItem('savedNonprofits', JSON.stringify(filteredNonprofits))
+        loadNonprofits();
     }
 
-    // When the 'more information' button is clicked, information will be called from the Charity API and will be appended to the modal
+    // When the 'magnifying glass' button is clicked, information will be called from the Charity API and will be appended to the modal
     if (clicked.matches('button') && clicked.textContent === '🔍') {
         const apiUrl = 'https://api.charityapi.org/api/organizations';
         const apiKey = 'live-5xe2vl-WAWxO6mV2GxmymmvPTC1glt2LnWv2PfbKBRbFFiW6b9vzUV5GUVRQpXlGCL09YdjwXmwZ-aV9';
@@ -162,27 +158,8 @@ savedEl.addEventListener('click', function (event) {
             .then(result => {
 
                 console.log(result.data);
-
                 // Create the elements and render the data
-                const details = document.getElementById('details');
-
-                details.innerHTML = ''
-
-                const address = document.createElement('p');
-                const city = document.createElement('p');
-                const state = document.createElement('p');
-                const zip = document.createElement('p');
-
-                address.textContent = result.data.street;
-                city.textContent = result.data.city;
-                state.textContent = result.data.state;
-                zip.textContent = result.data.zip;
-
-                details.appendChild(address);
-                details.appendChild(city);
-                details.appendChild(state);
-                details.appendChild(zip);
-
+                createAddress(result);
                 // Run the function to open the modal
                 openModal();
 
@@ -250,13 +227,7 @@ const displayResults = function () {
     searchForOrgs(userInput);
 };
 
-// Store the data in local storage, then call the function to display the results
-const searchButtonClick = function () {
-    const cityState = locationInputEl.value.trim();
-    localStorage.setItem('cityState', `${cityState}`);
-    displayResults();
-};
-
+// display the most recent search in local storage on the results list on load
 displayResults();
-
+// display the saved nonprofits in local storage to thee saved column on load
 loadNonprofits();
