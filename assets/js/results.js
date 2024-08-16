@@ -13,7 +13,6 @@ const saveNonprofits = function (name, ein) {
     if (savedNonprofits.some(nonprofit => nonprofit.ein === ein)) {
         return
     }
-    console.log(nonprofit)
     savedNonprofits.push(nonprofit)
     localStorage.setItem('savedNonprofits', JSON.stringify(savedNonprofits))
 }
@@ -34,6 +33,7 @@ const loadNonprofits = function () {
         const starEl = document.createElement('button');
 
         containerEl.setAttribute('data-ein', nonprofit.ein);
+        containerEl.setAttribute('data-name', nonprofit.name);
         li.setAttribute('class', 'flex direction-row justify-between');
         containerEl.setAttribute('class', 'flex direction-row');
 
@@ -62,17 +62,11 @@ resultsEl.addEventListener('click', function (event) {
     // When the 'save search' button is clicked, the functions will run to make the list item appear in the saved searches container
     if (clicked.matches('button') && clicked.textContent === '⭐') {
         const ein = clicked.parentElement.getAttribute('data-ein');
-        fetch(`https://partners.every.org/v0.2/search/${ein}?apiKey=pk_live_ed857e1af5a6567d7354ed4554625a24`)
-            .then(function (response) {
-                if (response.ok) {
-                    response.json().then(function (data) {
-                        const nonprofit = data.nonprofits[0]
-                        saveNonprofits(nonprofit.name, nonprofit.ein);
-                        loadNonprofits();
-                    })
-                }
-            })
-    }
+        const name = clicked.parentElement.getAttribute('data-name');
+
+        saveNonprofits(name, ein);
+        loadNonprofits();
+    };
 
     // When the 'more information' button is clicked, information will be called from the Charity API and will be appended to the modal
     if (clicked.matches('button') && clicked.textContent === '🔍') {
@@ -95,9 +89,6 @@ resultsEl.addEventListener('click', function (event) {
             })
             .then(result => {
 
-                console.log(result.data);
-
-                // Create the elements and render the data
                 const details = document.getElementById('details');
 
                 details.innerHTML = ''
@@ -220,6 +211,7 @@ const renderData = function (data) {
     const starEl = document.createElement('button');
 
     containerEl.setAttribute('data-ein', data.ein);
+    containerEl.setAttribute('data-name', data.name);
     li.setAttribute('class', 'flex direction-row justify-between');
     containerEl.setAttribute('class', 'flex direction-row');
     h3.textContent = data.name;
